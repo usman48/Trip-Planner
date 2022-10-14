@@ -1,0 +1,50 @@
+{
+    "manifest_version": 3,
+    "name": "Trip Planner",
+    "short_name": "Trip Planner",
+    "description": "Trip Planner",
+    "version": "0.1",
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "permissions": [
+        "tabs",
+        "cookies",
+        "storage",
+        "scripting",
+        "activeTab",
+        "identity"
+      ],
+    "version_name": "v0.1",
+    "action": {
+        "default_title": "Trip Planner",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "96": "imgs/small.png",
+        "128": "imgs/large.png"
+    },
+    "background": {
+        "service_worker": "js/background.js"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "js/jquery.min.js", "js/jqueryui.js", "js/content.js", "js/popup.js"
+            ],
+            "matches": [
+                "*://*/*"
+            ],
+            "run_at": "document_end",
+            "all_frames": false,
+            "match_about_blank": true
+        }
+    ],
+    "oauth2": {
+        "client_id": "1041971208677-rsh746nom26kk7ehfoh0o0keru1lco69.apps.googleusercontent.com",
+        "scopes": [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/spreadsheets.readonly"
+       ]}
+      
+}
