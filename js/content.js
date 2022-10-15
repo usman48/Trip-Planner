@@ -10,14 +10,19 @@ var ScrapeData = {};
   function Scraping(){
     ScrapeData = {
         'hotel_name' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
-        // 'hotel_street' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
-        // 'hotel_city' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
-        // 'hotel_country' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
+        'hotel_street' :  (document.querySelector('[data-node_tt_id=location_score_tooltip]'))  ? document.querySelector('[data-node_tt_id=location_score_tooltip]').textContent.trim().split(',').slice(0, -1).join(' ') : '',
+        'hotel_country' :  (document.querySelector('[data-node_tt_id=location_score_tooltip]')) ? document.querySelector('[data-node_tt_id=location_score_tooltip]').textContent.trim().split(',').pop() : '',
         // 'room_rate' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
         // 'tax' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
-        // 'rating' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
+        'rating' :  (document.querySelector('[data-testid=rating-stars]')) ? document.querySelector('[data-testid=rating-stars]').childNodes.length : '',
         // 'total_reviews' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
-        // 'reviews' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
+        'total_reviews' : (document.querySelector('[rel=reviews]')) ? document.querySelector('[rel=reviews]').textContent.trim().split('(')[1].replace(')','') : '',
+        'reviews' :  (document.querySelectorAll('[data-testid=featuredreview-text]')) ? document.querySelectorAll('[data-testid=featuredreview-text]')[0].innerText.trim() : '',
+
+
+
+        //ALl Reviews
+        // document.querySelectorAll('[data-testid=featuredreview-text]').forEach(element=>{ console.log(element.innerText); })
     }
     console.log(ScrapeData);
   }
