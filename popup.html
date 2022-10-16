@@ -1,79 +1,76 @@
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        body {
-            width: 300px;
-        }
-        span{
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>Stackfindover: Sign in</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-    <section>
-        <div class="container-fluid" style="height: 550px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col mt-4">
-                        <h6>Trip Planner</h6>
-                    </div>
-                    <div class="col mt-4">
-                        <p class=" my-0 small"><b>Email:</b> abcd@example.com</p>
-                        <button class="btn btn-info float-right my-1" style="padding: 2px 3px; font-size: small;">Sign Out</button>
-                    </div>
-                </div>
-            </div>
-            <hr class="solid">
-            <div class="container">
-                <div class="row">
-                    <p class="my-0 medium">Sheet URL: </p>
-                    <input id="text-input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    <span style="margin-left: auto;" id="save-btn" class="btn-sm btn-primary my-1">Save</span>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Sheet Name: </p>
-                    <p id="sheet_name" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Hotel Name: </p>
-                    <p id="hotel_name" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Hotel Address: </p>
-                    <p id="hotel_street" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Hotel Country: </p>
-                    <p id="hotel_country" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Room Rate/Night: </p>
-                    <p id="room_rate" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Tax & Charges/Night: </p>
-                    <p id="tax" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Hotel Rating: </p>
-                    <p id="rating" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">No. of Reviews: </p>
-                    <p id="total_reviews" class="form-control"></p>
-                </div>
-                <div class="row" >
-                    <p class="my-0 medium">Reviews: </p>
-                    <p id="reviews" class="form-control"></p>
-                </div>
-                
-            </div>
-            <span style="margin-left: auto;" id="push-btn" class="btn-sm btn-primary my-1">Upload</span>
+
+<body id="style-7">
+  <div class="login-root">
+    <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+      <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+        <div class="box-root padding-bottom--24 flex-flex flex-justifyContent--center">
+          <h1><a rel="dofollow">Trip Planner</a></h1>
         </div>
-        
-    </section>
-    <script src="js/popup.js"></script>
+        <div class="formbg-outer">
+          <div class="formbg">
+            <div class="formbg-inner padding-horizontal--24">
+              <form id="stripe-login">
+                <div class="field padding-bottom--24">
+                  <label for="url">Sheet URL: </label>
+                  <input type="url" id="text-input">
+                </div>
+                <div class="field padding-bottom--24">
+                  <input type="submit" id="push-btn" value="Save">
+                </div>
+              </form>
+              <form>
+                <div class="field padding-bottom--24">
+                  <label for="name">Sheet Name: </label>
+                  <input type="name" id="sheet_name">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Hotel Name: </label>
+                  <input type="name" id="hotel_name">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Hotel Address: </label>
+                  <input type="name" id="hotel_street">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Hotel Country: </label>
+                  <input type="name" id="hotel_country">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Room Rate/Night: </label>
+                  <input type="name" id="room_rate">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Tax & Charges/Night: </label>
+                  <input type="name" id="tax">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Hotel Ratings: </label>
+                  <input type="name" id="rating">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">No. of Reviews: </label>
+                  <input type="name" id="total_reviews">
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="name">Reviews: </label>
+                  <input type="name" id="reviews">
+                </div>
+                <div class="field padding-bottom--24">
+                  <input type="submit" id="push-btn" value="Upload">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+<script src="js/popup.js"></script>
 </html>
