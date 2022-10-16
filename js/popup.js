@@ -50,15 +50,10 @@ document.addEventListener("DOMContentLoaded", function() {
                                 //      browser.storage.local.set({'sheetName': e.target.value});
                                 //             });
                         })
-        
-        
-        
             })
         } 
     });
   }
-
-
 
 
 // function Load(){
@@ -67,15 +62,4 @@ document.addEventListener("DOMContentLoaded", function() {
 //     document.querySelectorAll("input[name='filter']").forEach((input) => {
 //         input.addEventListener('change', checkRadio);
 //     });
-// }
-// function checkRadio(event) {
-//     if(event.target.id == "customRadioInline1"){
-//         document.getElementById("customRadioInline1").checked = true;
-//         document.getElementById("customRadioInline2").checked = false;
-//         document.getElementById('custom').style.display = 'none';
-//     } else if (event.target.id == "customRadioInline2"){
-//         document.getElementById("customRadioInline1").checked = false;
-//         document.getElementById("customRadioInline2").checked = true;
-//         document.getElementById('custom').style.display = 'flex';
-//     }
 // }
