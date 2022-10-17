@@ -11,21 +11,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 (response.Data.reviews != '') ? document.getElementById("reviews").value = response.Data.reviews :'';
                 (response.Data.room_rate != '') ? document.getElementById("room_rate").value = response.Data.room_rate :'';
             }
-            else{
-                chrome.storage.local.get(['hotel_detail'], function(result) {
-                    document.getElementById("hotel_name").value = result.hotel_detail.hotel_name;
-                  });
-                
-            }
         });
       });
   });
   if(document.getElementById('save-btn')){
-    document.getElementById('save-btn').addEventListener('click', function () {
+    document.getElementById('save-btn').addEventListener('click', function (e) {
+        e.preventDefault();
         let url = document.getElementById('text-input').value;
         if (url != '') {
+
             let capturedId = url.match(/\/d\/(.+)\//);
-            console.log(capturedId[1]);
             chrome.storage.local.set({sheetId: capturedId[1]});
             chrome.storage.local.set({sheetUrl: url});
             const SHEET_ID = chrome.storage.local.get(['accessToken']);
@@ -39,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     Authorization: `Bearer ${res.accessToken}`
                     }}).then(res => res.json()).then(rep => {
                             (document.getElementById("sheet_name").parentElement.style.display == 'none') ? document.getElementById("sheet_name").parentElement.style.display = 'block' : ''
-                            document.getElementById("sheet_name").innerText = rep.properties.title;
+                            document.getElementById("sheet_name").value = rep.properties.title;
+                            chrome.storage.local.set({sheetName: rep.properties.title});
                             // document.querySelector('select').innerHTML = "";
                             // rep.sheets.forEach(titles);
                             // function titles(item,index){
