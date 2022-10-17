@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 (response.Data.reviews != '') ? document.getElementById("reviews").value = response.Data.reviews :'';
                 (response.Data.room_rate != '') ? document.getElementById("room_rate").value = response.Data.room_rate :'';
             }
+            else{
+                chrome.storage.local.get(['hotel_detail'], function(result) {
+                    document.getElementById("hotel_name").value = result.hotel_detail.hotel_name;
+                  });
+                
+            }
         });
       });
   });
