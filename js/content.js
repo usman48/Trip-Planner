@@ -33,21 +33,21 @@ var ScrapeData = {};
       Date = true;
     }
     
-    chrome.storage.local.get(['hotel_detail'], function(result) {
+  
     ScrapeData = {
-        'hotel_name' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : result.hotel_detail.hotel_name,
-        'hotel_street' :  (document.querySelector('[data-node_tt_id=location_score_tooltip]'))  ? document.querySelector('[data-node_tt_id=location_score_tooltip]').textContent.trim().split(',').slice(0, -1).join(' ') : result.hotel_detail.hotel_address,
-        'hotel_country' :  (document.querySelector('[data-node_tt_id=location_score_tooltip]')) ? document.querySelector('[data-node_tt_id=location_score_tooltip]').textContent.trim().split(',').pop().trim() : result.hotel_detail.hotel_country,
+        'hotel_name' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
+        'hotel_street' :  (document.querySelector('[data-node_tt_id=location_score_tooltip]'))  ? document.querySelector('[data-node_tt_id=location_score_tooltip]').textContent.trim().split(',').slice(0, -1).join(' ') : '',
+        'hotel_country' :  (document.querySelector('[data-node_tt_id=location_score_tooltip]')) ? document.querySelector('[data-node_tt_id=location_score_tooltip]').textContent.trim().split(',').pop().trim() : '',
         'room_rate' :  (Date) ? get_prices() : 'Please Select Dates',
         // 'tax' :  (document.querySelector("h2.d2fee87262.pp-header__title")) ? document.querySelector("h2.d2fee87262.pp-header__title").textContent : '',
         'rating' :  (document.querySelector('[data-testid=rating-stars]')) ? document.querySelector('[data-testid=rating-stars]').childNodes.length : '0',
         'total_reviews' : (document.querySelector('[rel=reviews]')) ? document.querySelector('[rel=reviews]').textContent.trim().split('(')[1].replace(')','') : '',
-        'reviews' :  (document.querySelectorAll('[data-testid=featuredreview-text]')[0]) ? get_reviews() : result.hotel_detail.reviews,
+        'reviews' :  (document.querySelectorAll('[data-testid=featuredreview-text]')[0]) ? get_reviews() : '',
         // All Reviews
         // document.querySelectorAll('[data-testid=featuredreview-text]').forEach(element=>{ console.log(element.innerText); })
         // document.getElementsByClassName('hp-price-left-align hprt-table-cell hprt-table-cell-price')[0].innerText.split('\n')
     }
-  });
+  
   }
   function get_prices(){
     const prices_arr = [];
@@ -146,18 +146,10 @@ var ScrapeData = {};
     document.querySelector("#ttdiv").remove();
   }
   
-//   document.addEventListener('mousedown', (event) => {
-//     event.preventDefault();
-//     setTimeout(() => {
-//         if (window.getSelection) {
-//             if (window.getSelection().empty) {  // Chrome
-//                 window.getSelection().empty();
-//             } else if (window.getSelection().removeAllRanges) {  // Firefox
-//                 window.getSelection().removeAllRanges();
-//             }
-//         } else if (document.selection) {  // IE?
-//             document.selection.empty();
-//         }
-//         (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
-//     }, 100)
-// })
+  document.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+    console.log(event);
+    // setTimeout(() => {
+    //     (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
+    // }, 100)
+})

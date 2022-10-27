@@ -3,13 +3,16 @@ document.addEventListener("DOMContentLoaded", function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {message: "popup"}, function(response) {
             if(response){
-                (response.Data.hotel_name != '') ? document.getElementById("hotel_name").value = response.Data.hotel_name :'';
-                (response.Data.hotel_street != '') ? document.getElementById("hotel_street").value = response.Data.hotel_street :'';
-                (response.Data.hotel_country != '') ? document.getElementById("hotel_country").value = response.Data.hotel_country :'';
-                (response.Data.total_reviews != '') ? document.getElementById("total_reviews").value = response.Data.total_reviews :'';
-                (response.Data.rating != '') ? document.getElementById("rating").value = response.Data.rating :'';
-                (response.Data.reviews != '') ? document.getElementById("reviews").value = response.Data.reviews :'';
-                (response.Data.room_rate != '') ? document.getElementById("room_rate").value = response.Data.room_rate :'';
+                chrome.storage.local.get(['hotel_detail'], function(result) {
+                    console.log(result);
+                (response.Data.hotel_name != '') ? document.getElementById("hotel_name").value = response.Data.hotel_name : document.getElementById("hotel_name").value = result.hotel_detail.hotel_name;
+                (response.Data.hotel_street != '') ? document.getElementById("hotel_street").value = response.Data.hotel_street : document.getElementById("hotel_street").value = result.hotel_detail.hotel_address;
+                (response.Data.hotel_country != '') ? document.getElementById("hotel_country").value = response.Data.hotel_country : document.getElementById("hotel_country").value = result.hotel_detail.hotel_country;
+                (response.Data.total_reviews != '') ? document.getElementById("total_reviews").value = response.Data.total_reviews : document.getElementById("total_reviews").value = result.hotel_detail.total_reviews;
+                (response.Data.rating != '') ? document.getElementById("rating").value = response.Data.rating : document.getElementById("rating").value = result.hotel_detail.rating;
+                (response.Data.reviews != '') ? document.getElementById("reviews").value = response.Data.reviews : document.getElementById("reviews").value = result.hotel_detail.reviews;
+                (response.Data.room_rate != '') ? document.getElementById("room_rate").value = response.Data.room_rate : document.getElementById("room_rate").value = result.hotel_detail.room_rate;
+            });
             }
         });
       });
@@ -57,7 +60,24 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-
+  document.getElementById('push-btn').addEventListener('click', function (e) {
+    e.preventDefault();
+    chrome.storage.local.get(null, function(result) {
+        console.log(result);
+  
+//     var params = {
+//         "range":"Sheet1!A1:B1",
+//         "majorDimension": "ROWS",
+//         "values": [
+//         ["Hello","World"]
+//        ],
+//   }
+// var xhr = new XMLHttpRequest();
+// xhr.open('PUT', `https://sheets.googleapis.com/v4/spreadsheets/${result.sheetId}/values/Sheet1!A1:B1?valueInputOption=USER_ENTERED`);
+// xhr.setRequestHeader('Authorization', 'Bearer ' + result.access_token);
+// xhr.send(JSON.stringify(params));
+});
+});
 // function Load(){
 //     document.getElementById("customRadioInline1").checked = true;
 //     document.getElementById('custom').style.display = 'none';
