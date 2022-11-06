@@ -17,7 +17,10 @@ var ScrapeData = {};
     if(!document.querySelector("#ttdiv") && Selection.length > 5){
       tooltip(Selection);
     }else{
-      (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
+      setTimeout(() => {
+        (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
+      }, 2000);
+      
     }
   });
   function Scraping(){
