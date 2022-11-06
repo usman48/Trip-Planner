@@ -15,51 +15,55 @@
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--24">
-              <form id="stripe-login">
+              <form>
                 <div class="field padding-bottom--24">
                   <label for="url">Sheet URL: </label>
-                  <input type="url" id="text-input" required>
+                  <input type="url" id="sheet_url" required>
                 </div>
                 <div class="field padding-bottom--24">
                   <input type="submit" id="save-btn" value="Save">
                 </div>
+                <div class="field padding-bottom--24">
+                  <label for="sheet_name">Sheet Name: </label>
+                  <input type="text" name="sheet_name" id="sheet_name" readonly>
+                </div>
+                <div class="field padding-bottom--24">
+                  <label for="sub_sheet">Sub Sheet: </label>
+                  <select name="sub_sheet" id="sub_sheet"></select>
+                </div>
               </form>
-              <form>
+              <form id="planner_form">
                 <div class="field padding-bottom--24">
-                  <label for="name">Sheet Name: </label>
-                  <input type="name" id="sheet_name" readonly>
+                  <label for="hotel_name">Hotel Name: </label>
+                  <input type="text" name="hotel_name" id="hotel_name">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">Hotel Name: </label>
-                  <input type="name" id="hotel_name">
+                  <label for="hotel_street">Hotel Address: </label>
+                  <input type="text" name="hotel_street" id="hotel_street">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">Hotel Address: </label>
-                  <input type="name" id="hotel_street">
+                  <label for="hotel_country">Hotel Country: </label>
+                  <input type="text" name="hotel_country" id="hotel_country">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">Hotel Country: </label>
-                  <input type="name" id="hotel_country">
+                  <label for="room_rate">Room Rate/Night: </label>
+                  <input type="text" name="room_rate" id="room_rate">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">Room Rate/Night: </label>
-                  <input type="name" id="room_rate">
+                  <label for="tax">Tax & Charges/Night: </label>
+                  <input type="text" name="tax" id="tax">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">Tax & Charges/Night: </label>
-                  <input type="name" id="tax">
+                  <label for="rating">Hotel Ratings: </label>
+                  <input type="text" name="rating" id="rating">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">Hotel Ratings: </label>
-                  <input type="name" id="rating">
+                  <label for="total_reviews">No. of Reviews: </label>
+                  <input type="text" name="total_reviews" id="total_reviews">
                 </div>
                 <div class="field padding-bottom--24">
-                  <label for="name">No. of Reviews: </label>
-                  <input type="name" id="total_reviews">
-                </div>
-                <div class="field padding-bottom--24">
-                  <label for="name">Reviews: </label>
-                  <input type="name" id="reviews">
+                  <label for="reviews">Reviews: </label>
+                  <input type="text" name="reviews" id="reviews">
                 </div>
                 <div class="field padding-bottom--24">
                   <input type="submit" id="push-btn" value="Upload">

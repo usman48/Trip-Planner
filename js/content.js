@@ -17,7 +17,7 @@ var ScrapeData = {};
     if(!document.querySelector("#ttdiv") && Selection.length > 5){
       tooltip(Selection);
     }else{
-      // document.querySelector("#ttdiv").remove();
+      (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
     }
   });
   function Scraping(){
@@ -146,10 +146,10 @@ var ScrapeData = {};
     document.querySelector("#ttdiv").remove();
   }
   
-  document.addEventListener('mousedown', (event) => {
-    event.preventDefault();
-    console.log(event);
-    // setTimeout(() => {
-    //     (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
-    // }, 100)
-})
+//   document.addEventListener('mousedown', (event) => {
+//     event.preventDefault();
+//     console.log(event);
+//     setTimeout(() => {
+//         (document.querySelector("#ttdiv")) ? document.querySelector("#ttdiv").remove() : '';
+//     }, 100)
+// })

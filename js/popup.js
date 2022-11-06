@@ -3,8 +3,13 @@ document.addEventListener("DOMContentLoaded", function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {message: "popup"}, function(response) {
             if(response){
-                chrome.storage.local.get(['hotel_detail'], function(result) {
+                chrome.storage.local.get(null, function(result) {
                     console.log(result);
+                (result.sheet_detail) ? (
+                    document.getElementById("sheet_url").value = result.sheet_detail.sheetUrl,
+                    document.getElementById("sheet_name").value = result.sheet_detail.sheetName,
+                    document.querySelector('select').innerHTML = '<option value="Sheet1">Sheet1</option>'
+                    ) :'';
                 (response.Data.hotel_name != '') ? document.getElementById("hotel_name").value = response.Data.hotel_name : document.getElementById("hotel_name").value = result.hotel_detail.hotel_name;
                 (response.Data.hotel_street != '') ? document.getElementById("hotel_street").value = response.Data.hotel_street : document.getElementById("hotel_street").value = result.hotel_detail.hotel_address;
                 (response.Data.hotel_country != '') ? document.getElementById("hotel_country").value = response.Data.hotel_country : document.getElementById("hotel_country").value = result.hotel_detail.hotel_country;
@@ -20,12 +25,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if(document.getElementById('save-btn')){
     document.getElementById('save-btn').addEventListener('click', function (e) {
         e.preventDefault();
-        let url = document.getElementById('text-input').value;
+        let url = document.getElementById('sheet_url').value;
         if (url != '') {
-
+            var sheet_detail = {};
             let capturedId = url.match(/\/d\/(.+)\//);
-            chrome.storage.local.set({sheetId: capturedId[1]});
-            chrome.storage.local.set({sheetUrl: url});
             const SHEET_ID = chrome.storage.local.get(['accessToken']);
             SHEET_ID.then((res) => {
                 console.log(res.accessToken);
@@ -38,17 +41,23 @@ document.addEventListener("DOMContentLoaded", function() {
                     }}).then(res => res.json()).then(rep => {
                             (document.getElementById("sheet_name").parentElement.style.display == 'none') ? document.getElementById("sheet_name").parentElement.style.display = 'block' : ''
                             document.getElementById("sheet_name").value = rep.properties.title;
-                            chrome.storage.local.set({sheetName: rep.properties.title});
-                            // document.querySelector('select').innerHTML = "";
-                            // rep.sheets.forEach(titles);
-                            // function titles(item,index){
-                            //     console.log(item.properties.title);
-                            //     const option = document.createElement("OPTION");
-                            //     const name = document.createTextNode(item.properties.title);
-                            //     option.value = item.properties.title;
-                            //     option.appendChild(name);
-                            //     document.querySelector('select').appendChild(option);
-                            //     }
+                            document.querySelector('select').innerHTML = "";
+                            rep.sheets.forEach(titles);
+                            function titles(item,index){
+                                console.log(item.properties.title);
+                                const option = document.createElement("OPTION");
+                                const name = document.createTextNode(item.properties.title);
+                                option.value = item.properties.title;
+                                option.appendChild(name);
+                                document.querySelector('select').appendChild(option);
+                                sheet_detail = {
+                                    'sheetId' : capturedId[1],
+                                    'sheetUrl' : url,
+                                    'sheetName' : rep.properties.title,
+                                    'subSheet' : item.properties.title
+                                }
+                                chrome.storage.local.set({sheet_detail: sheet_detail});
+                                }
                                 // const sheetName = document.getElementById('select').value;
                                 // browser.storage.local.set({'sheetName': sheetName});
                                 // document.getElementById('select').addEventListener('change', function(e) {
@@ -59,29 +68,35 @@ document.addEventListener("DOMContentLoaded", function() {
         } 
     });
   }
+  if(document.getElementById('planner_form')){
+    document.getElementById('planner_form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Array.from(formData.entries()).reduce((memo, [key, value]) => ({
+            ...memo,
+            [key]: value,
+        }), {});
+        console.log(JSON.stringify(data));
+       const SHEET_ID = chrome.storage.local.get(['sheetId', 'accessToken', 'data']);
+        SHEET_ID.then((res) => {
+                let sheet = res.sheetId;
+                const token = res.accessToken;
+                res.data = data;
+                f(sheet,token,res);
+                })
+            });
+        }
+function f(sheet,token, res){
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheet}/values/Sheet1!A:B:append?valueInputOption=USER_ENTERED`, {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+                    },
+            body: JSON.stringify({
+                majorDimension: 'ROWS',
+                values: [res.data]
+                })
 
-  document.getElementById('push-btn').addEventListener('click', function (e) {
-    e.preventDefault();
-    chrome.storage.local.get(null, function(result) {
-        console.log(result);
-  
-//     var params = {
-//         "range":"Sheet1!A1:B1",
-//         "majorDimension": "ROWS",
-//         "values": [
-//         ["Hello","World"]
-//        ],
-//   }
-// var xhr = new XMLHttpRequest();
-// xhr.open('PUT', `https://sheets.googleapis.com/v4/spreadsheets/${result.sheetId}/values/Sheet1!A1:B1?valueInputOption=USER_ENTERED`);
-// xhr.setRequestHeader('Authorization', 'Bearer ' + result.access_token);
-// xhr.send(JSON.stringify(params));
-});
-});
-// function Load(){
-//     document.getElementById("customRadioInline1").checked = true;
-//     document.getElementById('custom').style.display = 'none';
-//     document.querySelectorAll("input[name='filter']").forEach((input) => {
-//         input.addEventListener('change', checkRadio);
-//     });
-// }
+})
+}
